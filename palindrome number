@@ -3,46 +3,45 @@
 using namespace std;
 class Solution {
 public:
+
     bool isPalindrome(int x) {
         if (x < 0) return false; //girilen sayı negatif ise her halükarda palindrom sayı olamayacağından false döndürür.
         else if (x > 0) {
             string str = to_string(x);//x stringe çevrilir.
-            int length = str.length();
-            if (length % 2) {
-                //length bölü 2 kere denenecektir.
-                int sayac = 0;
-                for (int i = 0; i < length / 2 - 1; i++) {
-                    if (str.at(i) == str.at(length - 1 - i)) {
-                        sayac++;
-                        if (sayac == length / 2) {
-                            return true;
-                        }
-                    }
-                }
-                
+            int sayac = 0;
+            if (str.at(str.length() - 1) == '0') {
+                return false;
             }
-            else {
-                int sayac = 0;
-                for (int i = 0; i < (length + 1) / 2; i++) {
-                    if (str.at(i) == str.at((length + 1) / 2 - i)) {
+            if (str.length() == 1) {
+                return true;
+            }
+            
+            if (str.length() % 2 == 0) {
+                //length bölü 2 kere denenecektir.
+                for (int i = 0; i < (str.length() / 2); i++) {
+                    if (str.at(i) == str.at(str.length() - 1 - i)) {
                         sayac++;
                     }
                 }
-                if (sayac == (length + 1) / 2 - 1) {
+                if (sayac == str.length() / 2) {
+                    return true;
+                }
+            }
+
+            else {
+                for (int i = 0; i < str.length() - 1 / 2; i++) {
+                    if (str.at(i) == str.at(str.length() - 1 - i)) {
+                        sayac++;
+                    }
+                }
+                if (sayac == str.length() -1 / 2) {
                     return true;
                 }
             }
         }
-        else return true;
+        else if (x == 0) {
+            return true;
+        }
         return false;
     }
 };
-
-int main() {
-    Solution s1;
-    int x=0;
-    cin >> x;
-    cout << s1.isPalindrome(x)<< endl;
-
-    return 0;
-}
