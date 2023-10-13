@@ -9,9 +9,6 @@ public:
         else if (x > 0) {
             string str = to_string(x);//x stringe çevrilir.
             int sayac = 0;
-            if (str.at(str.length() - 1) == '0') {
-                return false;
-            }
             if (str.length() == 1) {
                 return true;
             }
