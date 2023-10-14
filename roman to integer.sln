@@ -1,31 +1,46 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32929.385
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{6441417D-ED2E-4E22-A6D7-A010009DB344}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Debug|x64.ActiveCfg = Debug|x64
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Debug|x64.Build.0 = Debug|x64
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Debug|x86.ActiveCfg = Debug|Win32
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Debug|x86.Build.0 = Debug|Win32
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Release|x64.ActiveCfg = Release|x64
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Release|x64.Build.0 = Release|x64
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Release|x86.ActiveCfg = Release|Win32
-		{6441417D-ED2E-4E22-A6D7-A010009DB344}.Release|x86.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {165A801F-97D5-412D-AB84-BE0E8328A0C1}
-	EndGlobalSection
-EndGlobal
+class Solution {
+public:
+    int romanToInt(string s) {
+        bool dogrula = 0;
+    bool dogrula2 = 0;
+    int total = 0;
+    for (int i = 0; i < s.length(); i++) {
+        if (i <15) {
+            dogrula = 0;
+            dogrula2 =0;
+            if (s.at(i) == 'C') {
+                if (s.length() > 1 && (i != s.length()-1)) {
+                    if (s.at(i + 1) == 'M') { total += 900; dogrula = 1; dogrula2 = 1; }
+                    if (s.at(i + 1) == 'D') { total += 400; dogrula = 1; dogrula2 = 1; }
+                }
+            }
+            if (s.at(i) == 'X') {
+                if(s.length() > 1 && (i != s.length()-1)) {
+                    if (s.at(i + 1) == 'C') { total += 90; dogrula = 1; dogrula2 = 1; }
+                    if (s.at(i + 1) == 'L') { total += 40; dogrula = 1; dogrula2 = 1; }
+                }
+            }
+            if (s.at(i) == 'I') {
+                if(s.length()>1 && (i != s.length()-1)){
+                    if (s.at(i + 1) == 'X') { total += 9; dogrula = 1; dogrula2 = 1; }
+                    if (s.at(i + 1) == 'V') { total += 4; dogrula = 1; dogrula2 = 1; }
+                }
+                
+            }
+            if (dogrula2 == 1) {
+                if (i != s.length() - 1) { i++; }
+            }
+            if (dogrula == 0 && dogrula2 != 1) {
+                if (s.at(i) == 'M') { total += 1000; }
+                if (s.at(i) == 'D') { total += 500; }
+                if (s.at(i) == 'C') { total += 100; }
+                if (s.at(i) == 'L') { total += 50; }
+                if (s.at(i) == 'X') { total += 10; }
+                if (s.at(i) == 'V') { total += 5; }
+                if (s.at(i) == 'I') { total += 1; }
+            }
+        }
+    }
+    return total;
+    }
+};
