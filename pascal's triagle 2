@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> arr;
+        long long ans = 1;
+        arr.push_back(1);
+        for (int k = 1; k < rowIndex; k++) {
+            ans=1;
+            for (int i = 1; i < k + 1; i++) {
+                ans = ans * (rowIndex - i+1);
+                ans = ans / i;
+            }
+            arr.push_back(ans);
+        }
+        if(rowIndex!=0) arr.push_back(1);
+        return arr;
+    }
+};
