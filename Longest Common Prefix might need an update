@@ -1,31 +1,16 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <array>
-#include <cmath>
-#include <algorithm>
-
-using namespace std;
-
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
         int sayac = 0;
-        string str;
-        int length = sizeof(strs) / sizeof(strs[0]);//length is equal to length of stsr array
-        int minLength = 2;
+        string str="";
+        sort(strs.begin(), strs.end());
+        int length = strs.size();//length is equal to length of stsr array
+        string first = strs[0];
+        int minLength = first.length();
         bool b = 0;
-        for (int i = 0; i < length; i++) {
-            for (int j = i + 1; i < length; j++) {
-                if (strs[i].length() <= strs[j].length()) {
-                    minLength = strs[i].length();// dizideki en kısa kelimenin uzunluğu
-                }
-            }
-        }
-        cout << minLength << endl << strs[0].length();
         for (int i = 0; i < minLength; i++) {
             for (int j = 0; j < length; j++) {
-                for (int k = j + 1; k < length; i++) {
+                for (int k = j + 1; k < length; k++) {
                     if (strs[k].at(i) != strs[j].at(i)) {
                         b = 1;
                         break;
@@ -42,17 +27,3 @@ public:
         return str;
     }
 };
-
-int main() {
-    string str[3] = { "çağrı","elma","mahmusafdgfgasfgafgadgt" };
-    Solution s1;
-    vector<string> v;
-    v.push_back("alma");
-    v.push_back("armut");
-    v.push_back("atokuoğa");
-    v.push_back("ab");
-    sort(v.begin(), v.end());
-    int n = v.size();
-    s1.longestCommonPrefix(v);
-    
-}
