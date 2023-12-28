@@ -1,54 +1,50 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int kalan=0;
-        if(l1->val+l2->val >= 10) kalan=1;
-        ListNode* l3 = new ListNode((l1->val+l2->val)%10);
+        char kalan=0;
+        char toplam=0;
+        if(l1->val+l2->val >= 10) kalan=1;  
+        l2->val = (l1->val+l2->val)%10;
         ListNode* itr1 = l1->next;
         ListNode* itr2 = l2->next;
-        while(true){//bu işlemden sonra liste terslenmelidir.
-            if(itr1 == nullptr || itr2 == nullptr)break;
-            unsigned toplam = itr1->val + itr2->val + kalan;
+        ListNode* prev=l2;
+        while(!(itr1 == nullptr || itr2 == nullptr)){
+            toplam = itr1->val + itr2->val + kalan;
             if(toplam >= 10) kalan=1;
             else kalan = 0;
-            l3 = new ListNode(toplam%10,l3);
+            itr2->val = toplam%10;
             itr1= itr1->next;
+            prev=itr2;
             itr2=itr2->next;
         }
-        if(itr1 == nullptr){
-            while(itr2 != nullptr){
-            int toplam =itr2->val + kalan;
-            if(toplam >= 10) kalan=1;
-            else kalan = 0;
-            l3 = new ListNode(toplam%10,l3);
-            itr2=itr2->next;
+        if(itr1 != nullptr){//eğer 1. liste bitmediyse...
+            prev->next=itr1;
+            while(itr1 != nullptr){
+                toplam = itr1->val+kalan;
+                if(toplam >= 10) kalan=1;
+                else {
+                    kalan=0;
+                    }
+                itr1->val = toplam%10;
+                prev=itr1;
+                itr1=itr1->next;
             }
         }
-        else{
-            while(itr1 !=nullptr){
-            int toplam =itr1->val + kalan;
-            if(toplam >= 10) kalan=1;
-            else kalan = 0;
-            l3 = new ListNode(toplam%10,l3);
-            itr1=itr1->next;
+        else if(itr2 != nullptr){//eğer 2.liste bitmediyse...
+            while(itr2 != nullptr){
+                toplam = itr2->val + kalan;
+                if(toplam >= 10) kalan=1;
+                else {
+                    kalan = 0;
+                }
+                itr2->val = toplam%10;
+                prev=itr2;
+                itr2=itr2->next;
             }
         }
         if(kalan == 1){
-            l3 = new ListNode(1,l3);
+            prev->next = new ListNode(1);
         }
-        return reverse(l3);
-    }
-    ListNode* reverse(ListNode* l){
-        ListNode* prev= nullptr;
-        ListNode* cur = l;
-        ListNode* next = nullptr;
-        while(cur != nullptr){
-            next = cur->next;
-            cur->next = prev;
-            prev=cur;
-            cur=next;
-        }
-        l = prev;
-        return l;
+        return l2;
     }
 };
